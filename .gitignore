@@ -9,6 +9,10 @@ media
 # Backup files # 
 *.bak 
 
+*.txt # logs
+# data
+argos/pdb_data
+
 # If you are using PyCharm # 
 # User-specific stuff
 .idea/**/workspace.xml
