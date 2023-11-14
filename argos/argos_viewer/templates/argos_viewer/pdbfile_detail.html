@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDB File Details</title>
+</head>
+
+<body>
+    <h1>PDB File Details</h1>
+    <h2>File Contents:</h2>
+    <pre>{{ pdb_file.contents }}</pre>
+    <h2>Download File:</h2>
+    <a href="{{ pdb_file.pdb_file.url }}" download>Download PDB File</a>
+</body>
+
+</html>
