@@ -13,6 +13,9 @@ media
 # data
 argos/pdb_data
 
+#keys 
+*.env*
+
 # If you are using PyCharm # 
 # User-specific stuff
 .idea/**/workspace.xml
