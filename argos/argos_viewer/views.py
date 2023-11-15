@@ -15,7 +15,7 @@ import tempfile
 
 def index(request):
     context = {}
-    return render(request, "index.html", context)
+    return redirect("upload_file")
 
 
 def upload_file(request):
@@ -40,7 +40,7 @@ def upload_file(request):
 
     # Render list page with the documents and the form
     context = {"pdb_files": pdb_files, "form": form, "message": message}
-    return render(request, "list.html", context)
+    return render(request, "argos_viewer/home.html", context)
 
 
 
