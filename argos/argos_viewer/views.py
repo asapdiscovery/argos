@@ -15,10 +15,10 @@ import tempfile
 
 def index(request):
     context = {}
-    return redirect("upload_file")
+    return redirect("home")
 
 
-def upload_file(request):
+def home(request):
     message = ""
     # Handle file upload
     if request.method == "POST":
