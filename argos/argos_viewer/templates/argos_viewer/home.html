@@ -50,7 +50,7 @@
 
         <!-- List of uploaded documents -->
         {% if pdb_files %}
-            <p>All PDBs:</p>
+            <p>Recent PDBs:</p>
             <ul>
                 {% for pdb_file in pdb_files %}
                     <li><a href="{% url 'detail' pdb_file.id %}">{{ pdb_file.pdb_file.name }}</a></li>
@@ -75,6 +75,7 @@
 
             <p><input type="submit" value="Upload"/></p>
         </form>
+     <a href="{% url 'pdb_files' %}">All files</a>
     </div>
 </body>
 </html>

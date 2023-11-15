@@ -1,6 +1,6 @@
 <ul>
     {% for pdb_file in pdbfile_list %}
-        <li><a href="{{ pdb_file.pdb_file.url }}">{{ pdb_file.pdb_file.name }}</a></li>
+      <li><a href="{% url 'detail' pdb_file.id %}">{{ pdb_file.pdb_file.name }}</a></li>
     {% empty %}
       <p>There are PDB files in DB.</p>
     {% endfor %}

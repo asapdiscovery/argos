@@ -36,10 +36,10 @@ def home(request):
         form = DocumentForm()  # An empty, unbound form
 
     # Load documents for the list page
-    pdb_files = PDBFile.objects.all()
+    latest_5 = PDBFile.objects.order_by("-upload_date")[:5]
 
     # Render list page with the documents and the form
-    context = {"pdb_files": pdb_files, "form": form, "message": message}
+    context = {"pdb_files": latest_5, "form": form, "message": message}
     return render(request, "argos_viewer/home.html", context)
 
 
