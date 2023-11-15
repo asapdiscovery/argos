@@ -1,0 +1,64 @@
+name: argos
+channels:
+  - openeye
+  - conda-forge
+dependencies:
+
+  # Base depends
+  - pip
+  - python = 3.10
+
+  # argos deps
+  - django
+  - gunicorn
+
+  # asapdiscovery deps
+
+  # Others
+  - appdirs
+  - openff-toolkit
+  - openeye-toolkits
+  - pandas
+  - pebble
+  - pydantic >=1.10.8,<2.0.0a0
+  - rdkit
+  - seaborn
+  - pebble
+
+  # data
+  - requests
+  - boto3
+  - moto
+  - flask
+  - flask-cors
+  - typing-extensions
+
+
+
+  # execution
+  - distributed
+  - dask
+  - dask-jobqueue
+  - netifaces
+
+  # viz
+  - imageio
+  - pymol-open-source
+  - gifsicle
+  - plip
+  - plotly
+  - dash
+
+  # Pip-only installs
+  - pip:
+    - git+https://github.com/choderalab/asapdiscovery@argos_mvp#egg=asapdiscovery-data&subdirectory=asapdiscovery-data
+    - git+https://github.com/choderalab/asapdiscovery@argos_mvp#egg=asapdiscovery-dataviz&subdirectory=asapdiscovery-dataviz
+    - git+https://github.com/choderalab/asapdiscovery@argos_mvp#egg=asapdiscovery-modeling&subdirectory=asapdiscovery-modeling
+    - biopython
+    - ase
+    - validators
+    - pyyaml
+    # viz
+    - pygifsicle
+    - sigfig
+    - airium

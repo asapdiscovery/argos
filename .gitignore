@@ -9,7 +9,7 @@ media
 # Backup files # 
 *.bak 
 
-*.txt # logs
+*.txt
 # data
 argos/pdb_data
 

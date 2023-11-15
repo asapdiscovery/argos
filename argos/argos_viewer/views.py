@@ -15,11 +15,11 @@ import tempfile
 
 def index(request):
     context = {}
-    return render(request, "index.html", context)
+    return redirect("home")
 
 
-def upload_file(request):
-    message = "Upload as many files as you want!"
+def home(request):
+    message = ""
     # Handle file upload
     if request.method == "POST":
         form = DocumentForm(request.POST, request.FILES)
@@ -36,11 +36,11 @@ def upload_file(request):
         form = DocumentForm()  # An empty, unbound form
 
     # Load documents for the list page
-    pdb_files = PDBFile.objects.all()
+    latest_5 = PDBFile.objects.order_by("-upload_date")[:5]
 
     # Render list page with the documents and the form
-    context = {"pdb_files": pdb_files, "form": form, "message": message}
-    return render(request, "list.html", context)
+    context = {"pdb_files": latest_5, "form": form, "message": message}
+    return render(request, "argos_viewer/home.html", context)
 
 
 
