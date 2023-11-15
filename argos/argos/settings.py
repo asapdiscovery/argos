@@ -34,7 +34,6 @@ if hosts:
     hosts = hosts.split(' ')
 
 ALLOWED_HOSTS = hosts
-print(ALLOWED_HOSTS)
 
 # Application definition
 
