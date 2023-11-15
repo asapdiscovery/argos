@@ -1,14 +1,56 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Minimal Django File Upload Example</title>
-    </head>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ASAP Discovery file Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    <body>
+        .container {
+            text-align: center;
+        }
+
+        .warning {
+            padding: 20px;
+            border: 2px solid #ff6347;
+            border-radius: 8px;
+            background-color: #fff;
+            color: #ff6347;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 5px 0;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="warning">Warning: Do not upload confidential structures</div>
+        <div class="warning">Caveat: currently only accepts liganded Mpro complexes</div>
+
         <!-- List of uploaded documents -->
         {% if pdb_files %}
-            All PDBs:
+            <p>All PDBs:</p>
             <ul>
                 {% for pdb_file in pdb_files %}
                     <li><a href="{% url 'detail' pdb_file.id %}">{{ pdb_file.pdb_file.name }}</a></li>
@@ -19,7 +61,7 @@
         {% endif %}
 
         <!-- Upload form. Note enctype attribute! -->
-        <form action="{% url "upload_file" %}" method="post" enctype="multipart/form-data">
+        <form action="{% url 'upload_file' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ message }}
             <p>{{ form.non_field_errors }}</p>
@@ -34,5 +76,6 @@
             <p><input type="submit" value="Upload"/></p>
         </form>
         <a href="{% url 'index' %}">Home</a>
-    </body>
+    </div>
+</body>
 </html>

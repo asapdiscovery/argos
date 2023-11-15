@@ -6,7 +6,7 @@ dependencies:
 
   # Base depends
   - pip
-  - python >= 3.10
+  - python = 3.10
 
   # argos deps
   - django
@@ -14,18 +14,8 @@ dependencies:
 
   # asapdiscovery deps
 
-  # Testing
-  - pytest
-  - pytest-cov
-  - pytest-xdist
-  - codecov
-
-  # cli
-  - click
-
   # Others
   - appdirs
-  - mdanalysis
   - openff-toolkit
   - openeye-toolkits
   - pandas
@@ -43,32 +33,12 @@ dependencies:
   - flask-cors
   - typing-extensions
 
-  # ml
-  - pytorch
-  - pytorch_geometric
-  - pytorch_cluster
-  - pytorch_scatter
-  - pytorch_sparse
-  - numpy
-  - h5py
-  - e3nn
-  - dgl
-  - dgllife
-  - pooch
 
-
-  # md
-  - openmm
-  - openmmforcefields
-  - mdtraj
-  - openff-toolkit
-  - cudatoolkit<=11.7 # need to specify explicitly for lilac
 
   # execution
   - distributed
   - dask
   - dask-jobqueue
-  - dask-cuda
   - netifaces
 
   # viz
@@ -79,30 +49,14 @@ dependencies:
   - plotly
   - dash
 
-  # simulation
-  - openfe =0.11.0
-  - gufe =0.9.1
-  - httpx
-  - perses >=0.10.2
-  - kartograf
-  - rich
-  - alchemiscale-client
-
   # Pip-only installs
   - pip:
-    # asapdiscovery itself
-    - git+https://github.com/choderalab/asapdiscovery.git@argos_mvp
+    - git+https://github.com/choderalab/asapdiscovery#egg=asapdiscovery-cli&subdirectory=asapdiscovery-cli
     - biopython
     - ase
     - validators
     - pyyaml
-    # ml
-    - git+https://github.com/choderalab/mtenn@0.4.0
-    # testing
-    - pytest-console-scripts
-    - pytest-timeout
     # viz
     - pygifsicle
     - sigfig
     - airium
-    - git+https://github.com/OpenFreeEnergy/cinnabar.git@8ce28bb107b96f48b542ae2bd3dc4fabccc614c3

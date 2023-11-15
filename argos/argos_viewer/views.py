@@ -19,7 +19,7 @@ def index(request):
 
 
 def upload_file(request):
-    message = "Upload as many files as you want!"
+    message = ""
     # Handle file upload
     if request.method == "POST":
         form = DocumentForm(request.POST, request.FILES)
