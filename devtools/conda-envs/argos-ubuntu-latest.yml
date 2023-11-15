@@ -49,3 +49,4 @@ dependencies:
     - pygifsicle
     - airium
     - rdkit
+    - python-dotenv
