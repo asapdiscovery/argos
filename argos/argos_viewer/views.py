@@ -59,15 +59,22 @@ def pdb_detail_view(request, pk):
     obj = get_object_or_404(PDBFile, pk=pk)
     data = obj.pdb_file.read()
 
-    c = Complex.from_pdb(
-        obj.pdb_file.path,
-        ligand_kwargs={"compound_name": "unknown"},
-        target_kwargs={"target_name": "unknown"},
-    )
+    try:
+        c = Complex.from_pdb(
+            obj.pdb_file.path,
+            ligand_kwargs={"compound_name": "unknown"},
+            target_kwargs={"target_name": "unknown"},
+        )
 
-    tf = tempfile.NamedTemporaryFile()  
-    html_viz = HTMLVisualizer(
-        [c.ligand.to_oemol()], [tf], "SARS-CoV-2-Mpro", c.target.to_oemol(), color_method="fitness"
-    )
-    html = html_viz.make_poses_html()[0]
+        tf = tempfile.NamedTemporaryFile()  
+        html_viz = HTMLVisualizer(
+            [c.ligand.to_oemol()], [tf], "SARS-CoV-2-Mpro", c.target.to_oemol(), color_method="fitness"
+        )
+        html = html_viz.make_poses_html()[0]
+    except:
+        redirect("failed")
+
     return HttpResponse(html)
+
+def failed(request):
+    return render(request, "argos_viewer/failed.html")

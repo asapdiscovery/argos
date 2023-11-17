@@ -1,4 +1,4 @@
-from .views import home, upload_sucessful, PDBListView, pdb_detail_view
+from .views import home, upload_sucessful, PDBListView, pdb_detail_view, failed
 from django.urls import path, include
 
 
@@ -7,4 +7,5 @@ urlpatterns = [
     path('upload_sucessful', upload_sucessful,  name='upload_sucessful'),
     path('pdb_files', PDBListView.as_view(), name='pdb_files'),
     path('pdb_file/<int:pk>', pdb_detail_view, name='detail'),
+    path('failed', failed, name='failed'),
 ]
