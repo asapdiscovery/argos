@@ -17,5 +17,7 @@ COPY --chown=$MAMBA_USER:$MAMBA_USER devtools/conda-envs/argos-ubuntu-latest.yml
 RUN micromamba install -y -n base git -f /tmp/env.yaml && \
     micromamba clean --all --yes
 
+ENV OE_LICENSE=/openeye/oe_license.txt
+
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
