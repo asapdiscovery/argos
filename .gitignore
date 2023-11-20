@@ -16,6 +16,9 @@ argos/pdb_data
 #keys 
 *.env*
 
+#traefik
+traefik-public-certificates
+
 # If you are using PyCharm # 
 # User-specific stuff
 .idea/**/workspace.xml

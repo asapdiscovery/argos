@@ -2,7 +2,7 @@ version: '3'
 
 services:
   web:
-    image: hmacdope/asap-argos:latest
+    image: ${ARGOS_DOCKER_IMAGE:?err}
     command:  bash -c "while !</dev/tcp/db/5432; do sleep 1; done; cd argos && gunicorn argos.wsgi:application --bind 0.0.0.0:8000"
     container_name: argos
     volumes:
@@ -26,10 +26,12 @@ services:
       - postgres_data_prod:/var/lib/postgresql/data/
     expose:
       - 5432
+    env_file:
+      - .env
     environment:
-      - POSTGRES_USER=django_traefik
-      - POSTGRES_PASSWORD=django_traefik
-      - POSTGRES_DB=django_traefik
+      - POSTGRES_USER=${POSTGRES_USER:?err}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?err}
+      - POSTGRES_DB=${POSTGRES_DB:?err}
 
   traefik:
     build:
@@ -38,12 +40,14 @@ services:
     ports:
       - 80:80
       - 443:443
+    env_file:
+      - .env
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./traefik-public-certificates:/certificates"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.dashboard.rule=Host(`dashboard-django-traefik.asap-argos.com`)"
+      - "traefik.http.routers.dashboard.rule=Host(`dashboard-django-traefik.${HOST_DOMAIN:?err}`)"
       - "traefik.http.routers.dashboard.tls=true"
       - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt"
       - "traefik.http.routers.dashboard.service=api@internal"
