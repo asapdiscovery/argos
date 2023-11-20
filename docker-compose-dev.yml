@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command:  bash -c "while !</dev/tcp/db/5432; do sleep 1; done; cd argos && gunicorn argos.wsgi:application --bind 0.0.0.0:8000"
+    container_name: argos
+    volumes:
+      - .:/argos
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    depends_on:
+      - db
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.django.rule=Host(`django.localhost`)"
+
+  db:
+    image: postgres:15-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=django_traefik
+      - POSTGRES_PASSWORD=django_traefik
+      - POSTGRES_DB=django_traefik
+
+  traefik: 
+    image: traefik:latest
+    ports:
+      - 8008:80
+      - 8081:8080
+    volumes:
+      - "$PWD/traefik.dev.toml:/etc/traefik/traefik.toml"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+
+volumes:
+  postgres_data:
