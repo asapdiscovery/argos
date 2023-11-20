@@ -2,7 +2,7 @@ version: '3'
 
 services:
   web:
-    build: .
+    image: hmacdope/asap-argos:latest
     command:  bash -c "while !</dev/tcp/db/5432; do sleep 1; done; cd argos && gunicorn argos.wsgi:application --bind 0.0.0.0:8000"
     container_name: argos
     volumes:
@@ -23,7 +23,7 @@ services:
   db:
     image: postgres:15-alpine
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data_prod:/var/lib/postgresql/data/
     expose:
       - 5432
     environment:
