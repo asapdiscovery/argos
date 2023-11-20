@@ -49,7 +49,6 @@ def upload_sucessful(request):
     message = "upload worked!"
     return HttpResponse(message)
 
-@login_required
 class PDBListView(generic.ListView):
     model = PDBFile
 
