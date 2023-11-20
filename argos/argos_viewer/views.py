@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from django.views import generic
 from django.shortcuts import get_object_or_404
 from django.views.decorators.cache import cache_page
+from django.contrib.auth.decorators import login_required
 
 
 from asapdiscovery.data.openeye import load_openeye_pdb
@@ -17,7 +18,7 @@ def index(request):
     context = {}
     return redirect("home")
 
-
+@login_required
 def home(request):
     message = ""
     # Handle file upload
@@ -48,11 +49,10 @@ def upload_sucessful(request):
     message = "upload worked!"
     return HttpResponse(message)
 
-
 class PDBListView(generic.ListView):
     model = PDBFile
 
-
+@login_required
 @cache_page(60*60) # cache for one hour
 def pdb_detail_view(request, pk):
     # Retrieve the object based on its primary key (pk)
