@@ -36,6 +36,9 @@ hosts = hosts.split(' ')
 
 ALLOWED_HOSTS = hosts
 
+CSRF_TRUSTED_ORIGINS = [f"https://{env('HOST_DOMAIN')}", "http://{env('HOST_DOMAIN')}"]
+
+
 # Application definition
 
 INSTALLED_APPS = [
