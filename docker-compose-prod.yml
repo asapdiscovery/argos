@@ -7,6 +7,10 @@ services:
     container_name: argos
     volumes:
       - .:/argos
+      - type: bind
+        source: $HOME/.OpenEye/
+        target: /openeye/
+
     ports:
       - 8000:8000
     env_file:
