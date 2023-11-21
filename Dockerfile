@@ -20,6 +20,7 @@ RUN micromamba install -y -n base git -f /tmp/env.yaml && \
 
 USER root
 RUN mkdir /openeye
+RUN mkdir /argos/pdb_data
 USER $MAMBA_USER
 ENV OE_LICENSE=/openeye/oe_license.txt
 
