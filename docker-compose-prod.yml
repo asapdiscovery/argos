@@ -15,7 +15,7 @@ services:
       - db
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.django.rule=Host(`django-traefik.asap-argos.com`)"
+      - "traefik.http.routers.django.rule=Host(`django-traefik.argos.asapdata.org`)"
       - "traefik.http.routers.django.tls=true"
       - "traefik.http.routers.django.tls.certresolver=letsencrypt"
 

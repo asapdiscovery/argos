@@ -27,3 +27,5 @@ dashboard = true
   [certificatesResolvers.letsencrypt.acme.httpChallenge]
     entryPoint = "web"
 
+[acme.httpChallenge]
+  entryPoint = "http"
