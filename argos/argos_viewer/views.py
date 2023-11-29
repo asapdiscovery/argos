@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from asapdiscovery.data.openeye import load_openeye_pdb
 from asapdiscovery.data.schema_v2.complex import Complex
 from asapdiscovery.dataviz.html_viz import HTMLVisualizer
+from asapdiscovery.data.fitness import target_has_fitness_data
 import tempfile
 
 def index(request):
@@ -62,7 +63,10 @@ def target_pdb_detail_view(request, pk):
     # Retrieve the object based on its primary key (pk)
     obj = get_object_or_404(TargetPDBFile, pk=pk)
     data = obj.pdb_file.file.read()
-    html = ""
+
+    if not target_has_fitness_data(obj.target):
+        return redirect("no_fitness_data")
+
     try:
         c = Complex.from_pdb(
             obj.pdb_file.file.path,
@@ -84,3 +88,7 @@ def target_pdb_detail_view(request, pk):
 @login_required
 def failed(request):
     return render(request, "argos_viewer/failed.html")
+
+@login_required
+def no_fitness_data(request):
+    return render(request, "argos_viewer/no_fitness_data.html")
