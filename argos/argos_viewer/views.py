@@ -29,6 +29,8 @@ def home(request):
             uploaded_file = request.FILES["pdb_file"]
             newfile = PDBFile(pdb_file=uploaded_file)
             newfile.save()
+            target = form.cleaned_data["dropdown_menu"]
+            print(target)
             # Redirect to the document list after POST
             return redirect("detail",  newfile.id)
         else:

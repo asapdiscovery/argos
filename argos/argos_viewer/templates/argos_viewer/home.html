@@ -73,6 +73,8 @@
                 {{ form.pdb_file }}
             </p>
 
+            <p>{{ form.dropdown_menu.label_tag }} {{ form.dropdown_menu }}</p>
+
             <p><input type="submit" value="Upload"/></p>
         </form>
      <a href="{% url 'pdb_files' %}">All files</a>
