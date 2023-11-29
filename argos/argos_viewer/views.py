@@ -27,7 +27,7 @@ def home(request):
 
         if form.is_valid():
             uploaded_file = request.FILES["pdb_file"]
-            pdb_file_instance = PDBFile(pdb_file=uploaded_file)
+            pdb_file_instance = PDBFile(file=uploaded_file)
             pdb_file_instance.save()
             target = form.cleaned_data["dropdown_menu"]
 
@@ -44,7 +44,7 @@ def home(request):
     latest_5 = TargetPDBFile.objects.order_by("-upload_date")[:5]
 
     # Render list page with the documents and the form
-    context = {"target_pdb_file": latest_5, "form": form, "message": message}
+    context = {"target_pdbs": latest_5, "form": form, "message": message}
     return render(request, "argos_viewer/home.html", context)
 
 
@@ -62,7 +62,7 @@ def target_pdb_detail_view(request, pk):
     # Retrieve the object based on its primary key (pk)
     obj = get_object_or_404(TargetPDBFile, pk=pk)
     data = obj.pdb_file.file.read()
-
+    html = ""
     try:
         c = Complex.from_pdb(
             obj.pdb_file.file.path,
@@ -76,9 +76,10 @@ def target_pdb_detail_view(request, pk):
         )
         html = html_viz.make_poses_html()[0]
     except:
-        redirect("failed")
+        return redirect("failed")
 
     return HttpResponse(html)
+
 
 @login_required
 def failed(request):

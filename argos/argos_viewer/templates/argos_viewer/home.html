@@ -52,8 +52,8 @@
         {% if pdb_files %}
             <p>Recent PDBs:</p>
             <ul>
-                {% for pdb_file in pdb_files %}
-                    <li><a href="{% url 'detail' pdb_file.id %}">{{ pdb_file.pdb_file.name }}</a></li>
+                {% for target_pdb in target_pdbs %}
+                    <li><a href="{% url 'detail' target_pdb.id %}">{{ target_pdb.pdb_file.file.name }}</a></li>
                 {% endfor %}
             </ul>
         {% else %}

@@ -42,10 +42,11 @@ dependencies:
 
   # Pip-only installs
   - pip:
-    - git+https://github.com/choderalab/asapdiscovery@argos_mvp#egg=asapdiscovery-data&subdirectory=asapdiscovery-data
-    - git+https://github.com/choderalab/asapdiscovery@argos_mvp#egg=asapdiscovery-dataviz&subdirectory=asapdiscovery-dataviz
-    - git+https://github.com/choderalab/asapdiscovery@argos_mvp#egg=asapdiscovery-modeling&subdirectory=asapdiscovery-modeling
+    - git+https://github.com/choderalab/asapdiscovery@main#egg=asapdiscovery-data&subdirectory=asapdiscovery-data
+    - git+https://github.com/choderalab/asapdiscovery@main#egg=asapdiscovery-dataviz&subdirectory=asapdiscovery-dataviz
+    - git+https://github.com/choderalab/asapdiscovery@main#egg=asapdiscovery-modeling&subdirectory=asapdiscovery-modeling
     - pyyaml
+    - rich
     # viz
     - pygifsicle
     - airium
