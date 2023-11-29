@@ -8,5 +8,5 @@ urlpatterns = [
     path('pdb_files', TargetPDBListView.as_view(), name='pdb_files'),
     path('pdb_file/<int:pk>', target_pdb_detail_view, name='detail'),
     path('failed', failed, name='failed'),
-    path('no_fitness_data', failed, name='no_fitness_data')
+    path('no_fitness_data/<str:target>', no_fitness_data, name='no_fitness_data')
 ]

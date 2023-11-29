@@ -65,7 +65,7 @@ def target_pdb_detail_view(request, pk):
     data = obj.pdb_file.file.read()
 
     if not target_has_fitness_data(obj.target):
-        return redirect("no_fitness_data")
+        return redirect("no_fitness_data", obj.target)
 
     try:
         c = Complex.from_pdb(
@@ -90,5 +90,6 @@ def failed(request):
     return render(request, "argos_viewer/failed.html")
 
 @login_required
-def no_fitness_data(request):
-    return render(request, "argos_viewer/no_fitness_data.html")
+def no_fitness_data(request, target):
+    context = {"target": target}
+    return render(request, "argos_viewer/no_fitness_data.html", context)
