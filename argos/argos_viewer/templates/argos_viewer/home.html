@@ -49,11 +49,11 @@
         <div class="warning">Caveat: currently only accepts liganded SARS-CoV-2 Mpro complexes</div>
 
         <!-- List of uploaded documents -->
-        {% if pdb_files %}
+        {% if target_pdbs %}
             <p>Recent PDBs:</p>
             <ul>
-                {% for pdb_file in pdb_files %}
-                    <li><a href="{% url 'detail' pdb_file.id %}">{{ pdb_file.pdb_file.name }}</a></li>
+                {% for target_pdb in target_pdbs %}
+                    <li><a href="{% url 'detail' target_pdb.id %}">{{ target_pdb.pdb_file.file.name }}</a></li>
                 {% endfor %}
             </ul>
         {% else %}
@@ -72,6 +72,8 @@
                 {{ form.pdb_file.errors }}
                 {{ form.pdb_file }}
             </p>
+
+            <p>{{ form.dropdown_menu.label_tag }} {{ form.dropdown_menu }}</p>
 
             <p><input type="submit" value="Upload"/></p>
         </form>
