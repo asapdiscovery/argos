@@ -76,10 +76,12 @@ def target_pdb_detail_view(request, pk):
 
         tf = tempfile.NamedTemporaryFile()  
         html_viz = HTMLVisualizer(
-            [c.ligand.to_oemol()], [tf], obj.target, c.target.to_oemol(), color_method="fitness"
+            [c.ligand.to_oemol()], [tf], obj.target, c.target.to_oemol(), color_method="fitness", align=False 
         )
+        # align=True is broken, see https://github.com/choderalab/asapdiscovery/issues/709
         html = html_viz.make_poses_html()[0]
-    except:
+    except Exception as e:
+        print(f"rendering failed with exception {e}")
         return redirect("failed")
 
     return HttpResponse(html)
