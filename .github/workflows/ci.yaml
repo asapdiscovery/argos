@@ -42,6 +42,9 @@ jobs:
       - name: Make OpenEye directory
         run: |
           mkdir -p ${{ github.workspace }}/.OpenEye
+          cd ${{ github.workspace }}/.OpenEye
+          pwd
+          touch oe_license.txt
 
       - name: Build and run containers
         run: |
