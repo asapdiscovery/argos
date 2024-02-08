@@ -13,7 +13,6 @@ on:
     #   (from https://help.github.com/en/actions/reference/events-that-trigger-workflows#scheduled-events-schedule)
     - cron: "0 0 * * *"
   workflow_dispatch:
-  merge_group:
 
 concurrency:
   group: "${{ github.workflow }}-${{ github.ref }}"
@@ -23,31 +22,31 @@ defaults:
   run:
     shell: bash -l {0}
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Install docker-compose
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y docker-compose
-    
-    - name: Copy example env file
-      run: |
-        cp devtools/deployment/.env.example .env
+      - name: Install docker-compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+      
+      - name: Copy example env file
+        run: |
+          cp devtools/deployment/.env.example .env
 
-    - name: Make OpenEye directory
-      run: |
-         mkdir -p ${{ github.workspace }}/.OpenEye
+      - name: Make OpenEye directory
+        run: |
+          mkdir -p ${{ github.workspace }}/.OpenEye
 
-    - name: Build and run containers
-      run: |
-         docker-compose -f docker-compose-dev.yml up -d
-    - name: Run tests
-      run: |
-         docker-compose -f docker-compose-dev.yml exec  web bash -c " cd argos &&  /opt/conda/bin/python  manage.py test"
+      - name: Build and run containers
+        run: |
+          docker-compose -f docker-compose-dev.yml up -d
+
+      - name: Run tests
+        run: |
+          docker-compose -f docker-compose-dev.yml exec web bash -c "cd argos && /opt/conda/bin/python manage.py test"
