@@ -32,18 +32,18 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Install Docker Compose
+    - name: Install docker-compose
       run: |
         sudo apt-get update
         sudo apt-get install -y docker-compose
     
-    - name: copy example env file
+    - name: Copy example env file
       run: |
         cp devtools/deployment/.env.example .env
 
-    - name: Build and run Docker Compose
+    - name: Build and run containers
       run: |
          docker-compose -f docker-compose-dev.yml up -d
-    - name: run tests
+    - name: Run tests
       run: |
          docker-compose -f docker-compose-dev.yml exec  web bash -c " cd argos &&  /opt/conda/bin/python  manage.py test"
