@@ -47,6 +47,12 @@ jobs:
       - name: Build and run containers
         run: |
           docker-compose -f docker-compose-dev.yml up -d
+          docker container ls
+
+      - name: wait for containers to start
+        run: |
+          sleep 30
+          docker container ls
 
       - name: Run tests
         run: |
