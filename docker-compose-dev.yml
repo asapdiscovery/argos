@@ -23,6 +23,13 @@ services:
 
   db:
     image: postgres:15-alpine
+    
+    healthcheck:
+      test: pg_isready
+      interval: 5s
+      timeout: 10s
+      retries: 120
+    
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     expose:
