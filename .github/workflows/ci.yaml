@@ -49,11 +49,6 @@ jobs:
           docker-compose -f docker-compose-dev.yml up -d
           docker container ls
 
-      # - name: wait for containers to start
-      #   run: |
-      #     sleep 30
-      #     docker container ls
-
       - name: Run tests
         run: |
           docker-compose -f docker-compose-dev.yml exec -T web bash -c "cd argos && /opt/conda/bin/python manage.py test"

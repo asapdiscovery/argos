@@ -17,7 +17,8 @@ services:
     env_file:
       - .env
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.django.rule=Host(`${HOST_DOMAIN:?err}`)"
@@ -27,6 +28,13 @@ services:
 
   db:
     image: postgres:15-alpine
+
+    healthcheck:
+      test: pg_isready
+      interval: 5s
+      timeout: 10s
+      retries: 120
+
     volumes:
       - postgres_data_prod:/var/lib/postgresql/data/
     expose:
