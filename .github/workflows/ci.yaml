@@ -41,6 +41,10 @@ jobs:
       run: |
         cp devtools/deployment/.env.example .env
 
+    - name: Make OpenEye directory
+      run: |
+         mkdir -p ${{ github.workspace }}/.OpenEye
+
     - name: Build and run containers
       run: |
          docker-compose -f docker-compose-dev.yml up -d
