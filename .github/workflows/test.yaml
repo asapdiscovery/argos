@@ -1,0 +1,45 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+  schedule:
+    # Nightly tests run on main by default:
+    #   Scheduled workflows run on the latest commit on the default or base branch.
+    #   (from https://help.github.com/en/actions/reference/events-that-trigger-workflows#scheduled-events-schedule)
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+  merge_group:
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash -l {0}
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install Docker Compose
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docker-compose
+
+    - name: Build and run Docker Compose
+      run: |
+         docker-compose -f docker-compose-dev.yml up -d
+    - name: run tests
+      run: |
+         docker-compose -f docker-compose-dev.yml exec  web bash -c " cd argos &&  /opt/conda/bin/python  manage.py test"

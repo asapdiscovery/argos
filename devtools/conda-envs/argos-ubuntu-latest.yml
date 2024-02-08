@@ -6,19 +6,24 @@ dependencies:
 
   # Base depends
   - pip
-  - python =3.10
-  - git
+  - python >=3.10,<3.11
+
 
   # argos deps
   - django
   - gunicorn
+
+  # Testing
+  - pytest
+  - pytest-cov
+
+
   # asapdiscovery deps
 
   # Others
   - appdirs
   - openeye-toolkits
   - pydantic >=1.10.8,<2.0.0a0
-
 
   # data
   - requests
