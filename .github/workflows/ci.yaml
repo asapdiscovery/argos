@@ -42,7 +42,12 @@ jobs:
       - name: Make OpenEye directory
         run: |
           mkdir -p ~/.OpenEye
-          touch ~/.OpenEye/oe_license.txt
+      
+      - name: Copy OpenEye license file
+        env:
+          OE_LICENSE: ${{ secrets.OE_LICENSE }}
+        run: |
+          echo "$OE_LICENSE" > ~/.OpenEye/oe_license.txt
 
       - name: Build and run containers
         run: |
