@@ -49,11 +49,16 @@ jobs:
         run: |
           echo "$OE_LICENSE" > ~/.OpenEye/oe_license.txt
 
-      - name: Build and run containers
+      - name: Build containers
         run: |
-          docker-compose -f docker-compose-dev.yml up -d
+          docker-compose -f docker-compose-dev.yml  build  --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g)        
           docker container ls
+          docker-compose -f docker-compose-dev.yml  up -d
+
+      - name: Chown volume
+        run: |
+          chown -R $(id -u):$(id -g) argos/pdb_data
 
       - name: Run tests
         run: |
-          docker-compose -f docker-compose-dev.yml exec -T web bash -c "cd argos && /opt/conda/bin/python manage.py test"
+          docker-compose -f docker-compose-dev.yml exec -T web bash -c "cd argos && /opt/conda/bin/python manage.py test --no-input"
