@@ -24,7 +24,7 @@ dependencies:
 
   # Others
   - appdirs
-  - openeye-toolkits
+  - openeye-toolkits <2023.2.3
   - pydantic >=1.10.8,<2.0.0a0
 
   # data

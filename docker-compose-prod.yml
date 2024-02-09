@@ -30,7 +30,7 @@ services:
     image: postgres:15-alpine
 
     healthcheck:
-      test: pg_isready
+      test: pg_isready -U ${POSTGRES_USER:?err} -d ${POSTGRES_DB:?err}
       interval: 5s
       timeout: 10s
       retries: 120
