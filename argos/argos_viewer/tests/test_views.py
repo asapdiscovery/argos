@@ -1,6 +1,8 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from argos_viewer.models import PDBFile, TargetPDBFile
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.utils import timezone
 from django.contrib.auth.models import User
 
 
@@ -8,6 +10,9 @@ class ViewTests(TestCase):
     def setUp(self):
         # Create a user
         self.user = User.objects.create_user(username='testuser', password='12345')
+        self.file = SimpleUploadedFile("test.pdb", b"pdb file content")
+        self.pdb_file = PDBFile.objects.create(file=self.file)
+        self.target_pdb_file = TargetPDBFile.objects.create(pdb_file=self.pdb_file, target="test_target", upload_date=timezone.now())
 
     def test_index_view(self):
         response = self.client.get(reverse('index'))
@@ -25,14 +30,12 @@ class ViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'upload worked!')
 
-    # You can write similar tests for other views...
 
     def test_target_pdb_detail_view_GET(self):
         self.client.force_login(self.user)
-        target_pdb = TargetPDBFile.objects.create()
-        response = self.client.get(reverse('detail', args=[target_pdb.pk]))
+        response = self.client.get(reverse('detail', args=[self.target_pdb_file.pk]))
         self.assertEqual(response.status_code, 200)
-        # Make assertions based on the response content or template used
+        self.assertTemplateUsed(response, 'argos_viewer/detail.html')
 
     def test_failed_view_GET(self):
         self.client.force_login(self.user)
