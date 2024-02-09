@@ -10,3 +10,5 @@ class TargetPDBFile(models.Model):
     pdb_file = models.ForeignKey(PDBFile, on_delete=models.CASCADE)
     target = models.CharField(max_length=200)
     upload_date = models.DateTimeField(auto_now_add=True)
+
+
