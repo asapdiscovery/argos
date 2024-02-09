@@ -23,7 +23,8 @@ class TargetPDBFileModelTest(TestCase):
         self.target_pdb_file = TargetPDBFile.objects.create(pdb_file=self.pdb_file, target="test_target", upload_date=timezone.now())
 
     def tearDown(self):
-        os.remove(self.file.name)
+        if os.path.exists(self.target_pdb_file.pdb_file.file.path):
+            os.remove(self.target_pdb_file.pdb_file.file.path)
 
     def test_target_pdb_file_created(self):
         self.assertTrue(TargetPDBFile.objects.exists())
