@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import PDBFile, TargetPDBFile
+from argos_viewer.models import PDBFile, TargetPDBFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.utils import timezone
 import os
@@ -38,3 +38,6 @@ class TargetPDBFileModelTest(TestCase):
     def test_pdb_file_deletion_on_target_pdb_file_deletion(self):
         self.target_pdb_file.delete()
         self.assertFalse(os.path.exists(self.pdb_file.file.path))
+
+
+
