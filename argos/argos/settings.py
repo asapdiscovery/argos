@@ -89,7 +89,8 @@ WSGI_APPLICATION = 'argos.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db(),
+    'default': env.db().update({"TEST": {"NAME": "test_db"}}),
+
 }
 
 

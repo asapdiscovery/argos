@@ -1,7 +1,6 @@
 from django.test import TestCase, Client, RequestFactory
 from django.urls import reverse
 from argos_viewer.models import PDBFile, TargetPDBFile
-from argos_viewer.views import target_pdb_detail_view
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.utils import timezone
 from django.contrib.auth.models import User
