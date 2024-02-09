@@ -57,7 +57,9 @@ jobs:
 
       - name: Chown volume
         run: |
-          chown -R $(id -u):$(id -g) argos/pdb_data
+          ls -alsh
+          ls -alsh argos
+          chown -R $(id -u):$(id -g) argos/argos/pdb_data
 
       - name: Run tests
         run: |
