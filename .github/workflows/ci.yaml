@@ -59,7 +59,7 @@ jobs:
         run: |
           ls -alsh
           ls -alsh argos
-          chown -R $(id -u):$(id -g) argos/argos/pdb_data
+          sudo chown -R $(id -u):$(id -g) argos/argos/pdb_data
 
       - name: Run tests
         run: |
