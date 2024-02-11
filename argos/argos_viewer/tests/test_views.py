@@ -14,7 +14,7 @@ class ViewTests(TestCase):
             self._file_contents = f.read()
         # Create a user
         self.user = User.objects.create_user(username='testuser', password='12345')
-        self.file = SimpleUploadedFile("test.pdb", self._file_contents)
+        self.file = SimpleUploadedFile("test.pdb", self._file_contents.encode())
         self.pdb_file = PDBFile.objects.create(file=self.file)
         self.target_pdb_file = TargetPDBFile.objects.create(pdb_file=self.pdb_file, target="SARS-CoV-2-Mpro", upload_date=timezone.now())
 
