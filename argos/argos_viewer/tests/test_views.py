@@ -4,13 +4,17 @@ from argos_viewer.models import PDBFile, TargetPDBFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.utils import timezone
 from django.contrib.auth.models import User
+from asapdiscovery.data.testing.test_resources import fetch_test_file
 
 
 class ViewTests(TestCase):
     def setUp(self):
+        self._test_file = fetch_test_file("Mpro-P2660_0A_bound.pdb")
+        with open(self._test_file, "r") as f:
+            self._file_contents = f.read()
         # Create a user
         self.user = User.objects.create_user(username='testuser', password='12345')
-        self.file = SimpleUploadedFile("test.pdb", b"pdb file content")
+        self.file = SimpleUploadedFile("test.pdb", self._file_contents)
         self.pdb_file = PDBFile.objects.create(file=self.file)
         self.target_pdb_file = TargetPDBFile.objects.create(pdb_file=self.pdb_file, target="SARS-CoV-2-Mpro", upload_date=timezone.now())
 
@@ -33,7 +37,7 @@ class ViewTests(TestCase):
 
     def test_target_pdb_detail_view_GET(self):
         self.client.force_login(self.user)
-        print("HELLO")
+        print(self._file_contents)
         response = self.client.get(reverse('detail', args=[self.target_pdb_file.pk]), follow=True)
         print(response)
         print(response.content)
