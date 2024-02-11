@@ -37,10 +37,7 @@ class ViewTests(TestCase):
 
     def test_target_pdb_detail_view_GET(self):
         self.client.force_login(self.user)
-        print(self._file_contents)
         response = self.client.get(reverse('detail', args=[self.target_pdb_file.pk]), follow=True)
-        print(response)
-        print(response.content)
         self.assertEqual(response.status_code, 200)
 
     def test_failed_view_GET(self):
