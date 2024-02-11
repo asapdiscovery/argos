@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_cleanup.apps.CleanupConfig',
     'argos_viewer.apps.ArgosViewerConfig',
 
 ]
@@ -89,6 +90,7 @@ WSGI_APPLICATION = 'argos.wsgi.application'
 
 DATABASES = {
     'default': env.db(),
+
 }
 
 
@@ -146,3 +148,18 @@ CACHES = {
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {"class": "logging.StreamHandler"},
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "INFO",
+        },
+    }
+}

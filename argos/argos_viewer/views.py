@@ -15,6 +15,10 @@ from asapdiscovery.dataviz.html_viz import HTMLVisualizer
 from asapdiscovery.data.fitness import target_has_fitness_data
 import tempfile
 
+import logging
+
+logger = logging.getLogger('django')
+
 def index(request):
     context = {}
     return redirect("home")
@@ -74,14 +78,13 @@ def target_pdb_detail_view(request, pk):
             target_kwargs={"target_name": "unknown"},
         )
 
-        tf = tempfile.NamedTemporaryFile()  
+        tf = tempfile.NamedTemporaryFile()
         html_viz = HTMLVisualizer(
-            [c.ligand.to_oemol()], [tf], obj.target, c.target.to_oemol(), color_method="fitness", align=False 
-        )
-        # align=True is broken, see https://github.com/choderalab/asapdiscovery/issues/709
+            [c.ligand.to_oemol()], [tf], obj.target, c.target.to_oemol(), color_method="fitness", align=True)
         html = html_viz.make_poses_html()[0]
+        logger.debug("Made pose html")
     except Exception as e:
-        print(f"rendering failed with exception {e}")
+        logger.error(f"rendering failed with exception {e}")
         return redirect("failed")
 
     return HttpResponse(html)
