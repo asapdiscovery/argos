@@ -9,8 +9,8 @@ from django.views.decorators.cache import cache_page
 from django.contrib.auth.decorators import login_required
 
 
-from asapdiscovery.data.openeye import load_openeye_pdb
-from asapdiscovery.data.schema_v2.complex import Complex
+from asapdiscovery.data.backend.openeye import load_openeye_pdb
+from asapdiscovery.data.schema.complex import Complex
 from asapdiscovery.dataviz.html_viz import HTMLVisualizer
 from asapdiscovery.data.fitness import target_has_fitness_data
 import tempfile

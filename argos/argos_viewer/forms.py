@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 import codecs
 from pathlib import Path
-from asapdiscovery.data.postera.manifold_data_validation import TargetTags
+from asapdiscovery.data.services.postera.manifold_data_validation import TargetTags
 
 
 def validate_pdb_extn(value):
