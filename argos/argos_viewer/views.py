@@ -2,18 +2,15 @@ from django.shortcuts import redirect, render
 from .models import PDBFile, TargetPDBFile
 from .forms import DocumentForm
 from django.http import HttpResponse
-from django.core.exceptions import ValidationError
 from django.views import generic
 from django.shortcuts import get_object_or_404
 from django.views.decorators.cache import cache_page
 from django.contrib.auth.decorators import login_required
 
 
-from asapdiscovery.data.backend.openeye import load_openeye_pdb
 from asapdiscovery.data.schema.complex import Complex
 from asapdiscovery.dataviz.html_viz import HTMLVisualizer
-from asapdiscovery.data.fitness import target_has_fitness_data
-import tempfile
+from asapdiscovery.genetics.fitness import target_has_fitness_data
 
 import logging
 
@@ -21,7 +18,6 @@ logger = logging.getLogger("django")
 
 
 def index(request):
-    context = {}
     return redirect("home")
 
 
