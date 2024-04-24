@@ -2,26 +2,24 @@ from django.shortcuts import redirect, render
 from .models import PDBFile, TargetPDBFile
 from .forms import DocumentForm
 from django.http import HttpResponse
-from django.core.exceptions import ValidationError
 from django.views import generic
 from django.shortcuts import get_object_or_404
 from django.views.decorators.cache import cache_page
 from django.contrib.auth.decorators import login_required
 
 
-from asapdiscovery.data.backend.openeye import load_openeye_pdb
 from asapdiscovery.data.schema.complex import Complex
 from asapdiscovery.dataviz.html_viz import HTMLVisualizer
-from asapdiscovery.data.fitness import target_has_fitness_data
-import tempfile
+from asapdiscovery.genetics.fitness import target_has_fitness_data
 
 import logging
 
-logger = logging.getLogger('django')
+logger = logging.getLogger("django")
+
 
 def index(request):
-    context = {}
     return redirect("home")
+
 
 @login_required
 def home(request):
@@ -39,7 +37,7 @@ def home(request):
             target_pdb = TargetPDBFile(pdb_file=pdb_file_instance, target=target)
             target_pdb.save()
             # Redirect to the document list after POST
-            return redirect("detail",  target_pdb.id)
+            return redirect("detail", target_pdb.id)
         else:
             message = "The form is not valid. Fix the following error:"
     else:
@@ -58,11 +56,13 @@ def upload_sucessful(request):
     message = "upload worked!"
     return HttpResponse(message)
 
+
 class TargetPDBListView(generic.ListView):
     model = TargetPDBFile
 
+
 @login_required
-@cache_page(60*60) # cache for one hour
+@cache_page(60 * 60)  # cache for one hour
 def target_pdb_detail_view(request, pk):
     # Retrieve the object based on its primary key (pk)
     obj = get_object_or_404(TargetPDBFile, pk=pk)
@@ -78,10 +78,10 @@ def target_pdb_detail_view(request, pk):
             target_kwargs={"target_name": "unknown"},
         )
 
-        tf = tempfile.NamedTemporaryFile()
         html_viz = HTMLVisualizer(
-            [c.ligand.to_oemol()], [tf], obj.target, c.target.to_oemol(), color_method="fitness", align=True)
-        html = html_viz.make_poses_html()[0]
+            target=obj.target, colour_method="fitness", write_to_disk=False, align=True
+        )
+        html = html_viz.visualize(inputs=[c])[0]
         logger.debug("Made pose html")
     except Exception as e:
         logger.error(f"rendering failed with exception {e}")
@@ -93,6 +93,7 @@ def target_pdb_detail_view(request, pk):
 @login_required
 def failed(request):
     return render(request, "argos_viewer/failed.html")
+
 
 @login_required
 def no_fitness_data(request, target):
