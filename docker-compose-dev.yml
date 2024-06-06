@@ -2,7 +2,12 @@ version: '3'
 
 services:
   web:
-    build: .
+    build:
+      context: .
+      args:
+        - USER_ID=${USER_ID:?err}
+        - GROUP_ID=${GROUP_ID:?err}
+      dockerfile: Dockerfile
     command:  bash -c "while !</dev/tcp/db/5432; do sleep 1; done; cd argos && gunicorn argos.wsgi:application --bind 0.0.0.0:8000"
     container_name: argos
     volumes:
